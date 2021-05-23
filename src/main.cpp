@@ -1,13 +1,5 @@
 #include <Arduino.h>
 
-// Include API-Headers
-extern "C" {
-  #include "user_interface.h"
-}
-
-// RTC-MEM adresses for saving timer
-#define RTC_WAKE_COUNT 67
-
 // GPIO pin connected to pump
 #define PUMP_PIN 4
 
@@ -20,14 +12,18 @@ extern "C" {
 // Every how many times sleeping it should turn on
 #define SLEEP_INTERVAL 2
 
-uint32_t sleepCount;
+// RTC memory adresses for saving timer
+#define RTC_WAKE_COUNT 24
 
 void setup() {
 
   // Bump sleep counter
-  system_rtc_mem_read(RTC_WAKE_COUNT, &sleepCount, 4);
-  sleepCount++;
-  system_rtc_mem_write(RTC_WAKE_COUNT, &sleepCount, 4);
+  uint32_t sleepCount = 0;
+  if (ESP.getResetReason() == "Deep-Sleep Wake") {
+    ESP.rtcUserMemoryRead(RTC_WAKE_COUNT, &sleepCount, 4);
+    sleepCount++;
+  }
+  ESP.rtcUserMemoryWrite(RTC_WAKE_COUNT, &sleepCount, 4);
 
   // Turn on LED
   pinMode(LED_BUILTIN, OUTPUT);
