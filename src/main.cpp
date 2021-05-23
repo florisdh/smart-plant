@@ -1,20 +1,18 @@
 #include <Arduino.h>
 
 void setup() {
-  // initialize LED digital pin as an output.
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(4, OUTPUT);
 }
 
 void loop() {
-  // turn the LED on (HIGH is the voltage level)
-  digitalWrite(LED_BUILTIN, HIGH);
-
-  // wait for a second
-  delay(2000);
-
-  // turn the LED off by making the voltage LOW
   digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(4, LOW);
 
-   // wait for a second
-  delay(2000);
+  delay(3000);
+  
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(4, HIGH);
+
+  ESP.deepSleep(30e6);
 }
