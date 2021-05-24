@@ -4,16 +4,16 @@
 #define PUMP_PIN 4
 
 // How long the pump should turn on
-#define POWER_DURATION 3000
+#define POWER_DURATION 4000
 
 // How long to sleep (max is 72 minutes) (36e8 is 1h) (60e6 is 1m)
 #define SLEEP_DURATION 36e8
 
 // Every how many times sleeping it should turn on
-#define SLEEP_INTERVAL 2
+#define SLEEP_INTERVAL 24
 
 // RTC memory adresses for saving timer
-#define RTC_WAKE_COUNT 24
+#define RTC_WAKE_COUNT 0
 
 void setup() {
 
